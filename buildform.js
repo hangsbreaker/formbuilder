@@ -382,6 +382,8 @@ function editing(data = "") {
       jenis = 7;
     } else if (tag[0] == "password") {
       jenis = 8;
+    } else if (tag[0] == "judul") {
+      jenis = 10;
     }
     addform(form[k]["pertanyaan"], form[k]["deskripsi"], checkbx);
 
@@ -405,7 +407,6 @@ function editing(data = "") {
       }
     } else if (tag[0] == "select") {
       select[tag[1]] = 0;
-      console.log("select-" + tag[1]);
       document.getElementById("select-" + tag[1]).innerHTML = "";
       for (var i in form[k]["data"]) {
         addselect(tag[1]);
