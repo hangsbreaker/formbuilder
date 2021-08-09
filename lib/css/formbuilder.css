@@ -1,5 +1,5 @@
 .question, .description, #titleform, #descriptionform {
-    line-break: anywhere;
+    line-break: auto;
 }
 
 .btlopt {
