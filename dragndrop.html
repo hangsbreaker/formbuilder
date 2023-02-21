@@ -33,7 +33,7 @@
             background: #000;
         }
 
-        .box.over {
+        .box.dragover {
             border: 2px dotted #aaa;
         }
     </style>
@@ -76,11 +76,11 @@
         }
 
         function handleDragEnter(e) {
-            this.classList.add("over");
+            this.classList.add("dragover");
         }
 
         function handleDragLeave(e) {
-            this.classList.remove("over");
+            this.classList.remove("dragover");
         }
 
         function handleDrop(e) {
@@ -101,7 +101,7 @@
 
             var items = document.querySelectorAll(".dragcontent");
             items.forEach(function (item) {
-                item.classList.remove("over");
+                item.classList.remove("dragover");
             });
         }
 
