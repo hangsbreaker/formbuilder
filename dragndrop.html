@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            margin: 10px 10px 15px 10px;
+            box-shadow: 0px 0px 2px 2px #ddd;
+            background-color: #fff;
+            border-radius: 3px;
+            padding-top: 0px;
+            padding-bottom: 25px;
+            padding-left: 30px;
+            padding-right: 30px;
+            position: relative;
+        }
+
+        .box:before {
+            content: "• • • •";
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            color: #aaa;
+            padding: 5px;
+        }
+
+        .box:hover .box:before {
+            background: #000;
+        }
+
+        .box.over {
+            border: 2px dotted #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div draggable="true" class="dragcontent box" id="dragaable-1">
+        <input type="text" placeholder="Drag 1" onkeyup="this.setAttribute('value',this.value);" />
+    </div>
+    <div draggable="true" class="dragcontent box" id="dragaable-2">
+        <input type="text" placeholder="Drag 2" onkeyup="this.setAttribute('value',this.value);" />
+    </div>
+    <div draggable="true" class="dragcontent box" id="dragaable-3">
+        <input type="text" placeholder="Drag 3" onkeyup="this.setAttribute('value',this.value);" />
+    </div>
+
+    <script>
+        var dragSrcEl = null;
+        var items = null;
+
+        function handleDragStart(e) {
+            this.style.opacity = "0.4";
+
+            dragSrcEl = this;
+
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/html", this.innerHTML);
+            console.log(e.dataTransfer.getData("text/html"));
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+
+            e.dataTransfer.dropEffect = "move";
+
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            this.classList.add("over");
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove("over");
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation(); // stops the browser from redirecting.
+            }
+
+            if (dragSrcEl != this) {
+                dragSrcEl.innerHTML = this.innerHTML;
+                this.innerHTML = e.dataTransfer.getData("text/html");
+            }
+
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            this.style.opacity = "1";
+
+            var items = document.querySelectorAll(".dragcontent");
+            items.forEach(function (item) {
+                item.classList.remove("over");
+            });
+        }
+
+
+        var item1 = document.getElementById("dragaable-1");
+        item1.addEventListener("dragstart", handleDragStart, false);
+        item1.addEventListener("dragenter", handleDragEnter, false);
+        item1.addEventListener("dragover", handleDragOver, false);
+        item1.addEventListener("dragleave", handleDragLeave, false);
+        item1.addEventListener("drop", handleDrop, false);
+        item1.addEventListener("dragend", handleDragEnd, false);
+
+
+        var item2 = document.getElementById("dragaable-2");
+        item2.addEventListener("dragstart", handleDragStart, false);
+        item2.addEventListener("dragenter", handleDragEnter, false);
+        item2.addEventListener("dragover", handleDragOver, false);
+        item2.addEventListener("dragleave", handleDragLeave, false);
+        item2.addEventListener("drop", handleDrop, false);
+        item2.addEventListener("dragend", handleDragEnd, false);
+
+
+        var item3 = document.getElementById("dragaable-3");
+        item3.addEventListener("dragstart", handleDragStart, false);
+        item3.addEventListener("dragenter", handleDragEnter, false);
+        item3.addEventListener("dragover", handleDragOver, false);
+        item3.addEventListener("dragleave", handleDragLeave, false);
+        item3.addEventListener("drop", handleDrop, false);
+        item3.addEventListener("dragend", handleDragEnd, false);
+    </script>
+</body>
+
+</html>
